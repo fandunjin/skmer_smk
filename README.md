@@ -36,7 +36,8 @@ Finally, simply run Snakemake to start the analysis
 snakemake --core 48 --latency-wait 120 #Return to the directory containing the Snakefile and run the following command to complete the analysis
 ```
 ### NOTICE
-1.Naming must be consistent
+1.Naming must be consistent  
+
 Reference genome:ref_fna
 Paired-end reads: sample.R1.fq.gz and sample.R2.fq.gz (the "sample" prefix can be changed, but the suffix must be exactly ".R1.fq.gz" and ".R2.fq.gz")
 2.Place the data in the correct locations: Place ref.fna in the raw_data/ directory, and put sample.R1.fq.gz (along with sample.R2.fq.gz) inside raw_data/raw_data/
