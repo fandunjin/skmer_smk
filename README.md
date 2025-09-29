@@ -1,6 +1,6 @@
 # Skmer snakemake workflow
-#### &nbsp;&nbsp;&nbsp;&nbsp;This Snakemake-based workflow provides an automated pipeline for phylogenetic analysis starting from raw sequencing data, integrating multiple bioinformatics tools including Bowtie2 for nuclear genome filtering, BBTools for sequence repair and merging, Skmer for k-mer-based distance matrix calculation, and FastME/RAxML for robust phylogenetic tree construction. The workflow efficiently processes multiple samples through parallel computing, ensures reproducibility with containerized environments, and delivers comprehensive outputs including distance matrices and consensus trees for evolutionary studies.
-## Test Procedure (Using Test Data)
+<span style="font-size:12px">&nbsp;&nbsp;&nbsp;&nbsp;This Snakemake-based workflow provides an automated pipeline for phylogenetic analysis starting from raw sequencing data, integrating multiple bioinformatics tools including Bowtie2 for nuclear genome filtering, BBTools for sequence repair and merging, Skmer for k-mer-based distance matrix calculation, and FastME/RAxML for robust phylogenetic tree construction. The workflow efficiently processes multiple samples through parallel computing, ensures reproducibility with containerized environments, and delivers comprehensive outputs including distance matrices and consensus trees for evolutionary studies.
+## Test Procedure (Using Test Data)</span>
 ```bash
 git@github.com:fandunjin/skmer_smk.git
 conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
@@ -13,11 +13,11 @@ snakemake --core 4
 ```
 
 # How to analyse your own data with Skmer workflow?
-## First, clone this repository
+First, clone this repository
 ```bash
 git@github.com:fandunjin/skmer_smk.git
 ```
-## Next, create the skmer working environment
+Next, create the skmer working environment
 ```bash
 conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
 # In skmer correct, the pandas version must be <2; otherwise, a rep91 ValueError will occur, so an older pandas version needs to be installed separately.
