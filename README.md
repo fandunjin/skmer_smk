@@ -24,22 +24,22 @@ conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopytho
 conda activate skmer #get into environment
 pip show pandas # confirm the version of pandas
 ```
-### Since the version of Skmer available in Conda is outdated, it needs to be manually downloaded from GitHub: https://github.com/shahab-sarmashghi/Skmer
+Since the version of Skmer available in Conda is outdated, it needs to be manually downloaded from GitHub: https://github.com/shahab-sarmashghi/Skmer
 ```bash
 git clone https://github.com/shahab-sarmashghi/Skmer.git
 cd Skmer
 python setup.py install
 ```
-## Finally, simply run Snakemake to start the analysis
+Finally, simply run Snakemake to start the analysis
 ```bash
 #place the reference genome file (ref.fna) into the raw_data/ directory, and put the paired-end sequencing reads into raw_data/raw_data/.
 snakemake --core 48 --latency-wait 120 #Return to the directory containing the Snakefile and run the following command to complete the analysis
 ```
 ### NOTICE
-#### 1.Naming must be consistent
-##### Reference genome:ref_fna
-##### Paired-end reads: sample.R1.fq.gz and sample.R2.fq.gz (the "sample" prefix can be changed, but the suffix must be exactly ".R1.fq.gz" and ".R2.fq.gz")
-#### 2.Place the data in the correct locations: Place ref.fna in the raw_data/ directory, and put sample.R1.fq.gz (along with sample.R2.fq.gz) inside raw_data/raw_data/
+1.Naming must be consistent
+Reference genome:ref_fna
+Paired-end reads: sample.R1.fq.gz and sample.R2.fq.gz (the "sample" prefix can be changed, but the suffix must be exactly ".R1.fq.gz" and ".R2.fq.gz")
+2.Place the data in the correct locations: Place ref.fna in the raw_data/ directory, and put sample.R1.fq.gz (along with sample.R2.fq.gz) inside raw_data/raw_data/
 ```text
 skmer_smk/
 ├── raw_data/
@@ -56,13 +56,13 @@ skmer_smk/
 ```
 
 ## Output results include
-### Main output files
+Main output files
 ```text
 results/skmer/dimtrx_main_cor_OK.txt.tre：Branch tree
 results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre: Bootstrap tree
 results/skmer/integration.tre：Integrate branch and bootstrap tree
 ```
-### Other output files
+Other output files
 ```text
 results/skmer/dimtrx_main.txt：Main distance matrix
 results/{sample}/nDNA/：Per-sample DNA filtering results
