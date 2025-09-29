@@ -61,7 +61,7 @@ results/skmer/dimtrx_main_cor_OK.txt.tre：Branch tree
 results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre: Bootstrap tree
 results/skmer/integration.tre：Integrate branch and bootstrap tree
 ```
-### 中间文件目录
+### Other output files
 ```text
 results/skmer/dimtrx_main.txt：Main distance matrix
 results/{sample}/nDNA/：Per-sample DNA filtering results
