@@ -1,12 +1,16 @@
 rep_n = 100
 SAMPLES, = glob_wildcards("raw_data/raw_data/{sample}.R1.fq.gz")
+def get_all_fq(wildcards):
+    return expand("results/{sample}/nDNAOK/{sample}.fq", sample=SAMPLES)
+
 rule all: 
     input:
+        expand("results/{sample}/nDNAOK/{sample}.fq", sample=SAMPLES),
         "results/skmer/dimtrx_main.txt", # 距离矩阵
         expand("results/skmer/subsample/rep{i}/dimtrx_rep.txt", i=range(rep_n)),
         "results/skmer/dimtrx_main_cor_OK.txt.tre", # 最终树
         "results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre", # skmer树
-	"results/skmer/integration.tre"
+	    "results/skmer/integration.tre"
 
 rule bowtie2_build: 
     input: ref="raw_data/ref.fna" 
@@ -24,6 +28,7 @@ rule bowtie2_filter:
         sam="results/{sample}/nDNA/{sample}.sam"
     threads: 48
     shell:
+        "mkdir -p results &&"
         "bowtie2 -x raw_data/ref -1 {input.r1} -2 {input.r2} --un-conc-gz results/{wildcards.sample}/nDNA -S {output.sam} -p {threads}"
 
 rule rename_unconc:
@@ -69,12 +74,6 @@ rule head_reads:
 import glob
 import os
 # 4. 样本级 → 全局级桥接 
-def get_all_fq(wildcards):
-    import os
-    fq_files = glob.glob("results/*/nDNAOK/*.fq")
-    samples = [os.path.basename(f).replace(".fq", "") for f in fq_files]
-    return expand("results/{sample}/nDNAOK/{sample}.fq", sample=samples)
-
 rule link_to_ref_dir:
     input: get_all_fq
     output: touch("ref_dir/.moved") # 全局标记 
