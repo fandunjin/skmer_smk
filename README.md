@@ -29,7 +29,11 @@ git clone https://github.com/shahab-sarmashghi/Skmer.git
 cd Skmer
 python setup.py install
 ```
-## Finally, place the reference genome file (ref.fna) into the raw_data/ directory, and put the paired-end sequencing reads into raw_data/raw_data/. Then simply run Snakemake to start the analysis.
+## Finally, simply run Snakemake to start the analysis.
+```bash
+#place the reference genome file (ref.fna) into the raw_data/ directory, and put the paired-end sequencing reads into raw_data/raw_data/.
+snakemake --core 48 --latency-wait 120 #Return to the directory containing the Snakefile and run the following command to complete the analysis
+```
 ### NOTICE：
 #### 1.Naming must be consistent:
 ##### Reference genome:ref_fna；
@@ -48,9 +52,6 @@ skmer_smk/
 ├── Snakefile
 ├── tsv_to_phymat.sh
 └── merge_consensus.py
-```
-```bash
-snakemake --core 48 --latency-wait 120 #Return to the directory containing the Snakefile and run the following command to complete the analysis
 ```
 
 ## Output results include：
