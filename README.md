@@ -1,32 +1,5 @@
-# Skmer with snakemake workflow
-## 首先，拉取本Repositories
-```bash
-git@github.com:fandunjin/skmer_smk.git
-```
-## 接着，创建skmer工作环境
-```bash
-conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
-# skmer correct中pandas的版本需要<2，否则会报错rep91 ValueError，所以需要单独安装较低版本的pandas
-conda activate skmer #进入环境
-pip show pandas # 确认pandas版本
-```
-### 由于conda中的skmer版本过低，需要从github中下载：https://github.com/shahab-sarmashghi/Skmer
-```bash
-git clone https://github.com/shahab-sarmashghi/Skmer.git
-cd Skmer
-python setup.py install
-```
-## 最后，将参考基因组数据ref_fna放入raw_data中，原始双端测序数据放入raw_data/raw_data中，后运行snakemake即可。
-### 需要注意的是：
-#### 1.命名格式要一致：参考基因组为ref_fna；原始双端测序数据为sample.R1.fq.gz和sample.R2.fq.gz（sample可修改，后缀一定要为".R1.fq.gz"）
-#### 2.数据放在正确的位置：ref_fna在raw_data中，sample.R1.fq.gz在raw_data/raw_data中
-```bash
-snakemake --core 48 --latency-wait 120 #回到snakefile所处路径，运行此命令行即可完成分析
-```
-
-## 输出结果包含：
-
-## 测试流程
+# Skmer snakemake workflow
+## Test Procedure (Using Test Data)
 ```bash
 git@github.com:fandunjin/skmer_smk.git
 conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
@@ -36,4 +9,62 @@ cd Skmer
 python setup.py install
 cd ../
 snakemake --core 4
+```
+
+# How to analyse your own data with Skmer workflow?
+## First, clone this repository:
+```bash
+git@github.com:fandunjin/skmer_smk.git
+```
+## Next, create the skmer working environment:
+```bash
+conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
+# In skmer correct, the pandas version must be <2; otherwise, a rep91 ValueError will occur, so an older pandas version needs to be installed separately.
+conda activate skmer #get into environment
+pip show pandas # confirm the version of pandas
+```
+### Since the version of Skmer available in Conda is outdated, it needs to be manually downloaded from GitHub: https://github.com/shahab-sarmashghi/Skmer
+```bash
+git clone https://github.com/shahab-sarmashghi/Skmer.git
+cd Skmer
+python setup.py install
+```
+## Finally, place the reference genome file (ref.fna) into the raw_data/ directory, and put the paired-end sequencing reads into raw_data/raw_data/. Then simply run Snakemake to start the analysis.
+### NOTICE：
+#### 1.Naming must be consistent:
+##### Reference genome:ref_fna；
+##### Paired-end reads: sample.R1.fq.gz and sample.R2.fq.gz (the "sample" prefix can be changed, but the suffix must be exactly ".R1.fq.gz" and ".R2.fq.gz")
+#### 2.Place the data in the correct locations: Place ref.fna in the raw_data/ directory, and put sample.R1.fq.gz (along with sample.R2.fq.gz) inside raw_data/raw_data/
+```text
+skmer_smk/
+├── raw_data/
+│   ├── ref.fna
+│   └── raw_data/
+│       ├── sample1.R1.fq.gz
+│       ├── sample1.R2.fq.gz
+│       ├── sample2.R1.fq.gz
+│       ├── sample2.R2.fq.gz
+│       └── ...
+├── Snakefile
+├── tsv_to_phymat.sh
+└── merge_consensus.py
+```
+```bash
+snakemake --core 48 --latency-wait 120 #Return to the directory containing the Snakefile and run the following command to complete the analysis
+```
+
+## Output results include：
+### Main output files
+```text
+results/skmer/dimtrx_main_cor_OK.txt.tre：Branch tree
+results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre: Bootstrap tree
+results/skmer/integration.tre：Integrate branch and bootstrap tree
+```
+### 中间文件目录
+```text
+results/skmer/dimtrx_main.txt：Main distance matrix
+results/{sample}/nDNA/：Per-sample DNA filtering results
+results/{sample}/nDNAOK/：Sequences after head 25,000,000
+results/skmer/subsample/：bootstrap Bootstrap replicate results
+ref_dir/：Collection directory of sequences for Skmer runs
 ```
