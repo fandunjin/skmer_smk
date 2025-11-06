@@ -17,6 +17,12 @@ First, clone this repository
 ```bash
 git clone https://github.com/fandunjin/skmer_smk.git
 ```
+If you didn't set the conda channel:
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
 Next, create the skmer working environment
 ```bash
 conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
