@@ -2,7 +2,7 @@
 <span style="font-size:12px">&nbsp;&nbsp;&nbsp;&nbsp;This Snakemake-based workflow provides an automated pipeline for phylogenetic analysis starting from raw sequencing data, integrating multiple bioinformatics tools including Bowtie2 for nuclear genome filtering, BBTools for sequence repair and merging, Skmer for k-mer-based distance matrix calculation, and FastME/RAxML for robust phylogenetic tree construction. The workflow efficiently processes multiple samples through parallel computing, ensures reproducibility with containerized environments, and delivers comprehensive outputs including distance matrices and consensus trees for evolutionary studies.
 ## Test Procedure (Using Test Data)</span>
 ```bash
-git@github.com:fandunjin/skmer_smk.git
+git clone https://github.com/fandunjin/skmer_smk.git
 conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
 conda activate skmer
 git clone https://github.com/shahab-sarmashghi/Skmer.git
