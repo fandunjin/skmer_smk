@@ -3,8 +3,9 @@
 ## Test Procedure (Using Test Data)</span>
 ```bash
 git clone https://github.com/fandunjin/skmer_smk.git
-conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
+conda create -n skmer snakemake Mash seqtk pandas=1.5.2 scipy biopython bowtie2 bbmap fastme raxml python=3.9
 conda activate skmer
+conda install -c bioconda jellyfish
 git clone https://github.com/shahab-sarmashghi/Skmer.git
 cd Skmer
 python setup.py install
@@ -25,9 +26,10 @@ conda config --add channels conda-forge
 ```
 Next, create the skmer working environment
 ```bash
-conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython python=3.9
+conda create -n skmer snakemake Mash seqtk pandas=1.5.2 scipy biopython bowtie2 bbmap fastme raxml python=3.9
 # In skmer correct, the pandas version must be <2; otherwise, a rep91 ValueError will occur, so an older pandas version needs to be installed separately.
 conda activate skmer #get into environment
+conda install -c bioconda jellyfish
 pip show pandas # confirm the version of pandas
 ```
 Since the version of Skmer available in Conda is outdated, it needs to be manually downloaded from GitHub: https://github.com/shahab-sarmashghi/Skmer
