@@ -25,7 +25,7 @@ conda config --add channels conda-forge
 ```
 Next, create the skmer working environment
 ```bash
-conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython
+conda create -n skmer snakemake Jellyfish Mash seqtk pandas=1.5.2 scipy biopython python=3.9
 # In skmer correct, the pandas version must be <2; otherwise, a rep91 ValueError will occur, so an older pandas version needs to be installed separately.
 conda activate skmer #get into environment
 pip show pandas # confirm the version of pandas
