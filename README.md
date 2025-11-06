@@ -15,7 +15,7 @@ snakemake --core 4
 # How to analyse your own data with Skmer workflow?
 First, clone this repository
 ```bash
-git@github.com:fandunjin/skmer_smk.git
+git clone https://github.com/fandunjin/skmer_smk.git
 ```
 Next, create the skmer working environment
 ```bash
