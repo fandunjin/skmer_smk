@@ -82,4 +82,5 @@ ref_dir/：Collection directory of sequences for Skmer runs
 
 # REFERENCE
 https://github.com/shahab-sarmashghi/Skmer
+
 Sarmashghi, S., Bohmann, K., P. Gilbert, M.T. et al. Skmer: assembly-free and alignment-free sample identification using genome skims. Genome Biol 20, 34 (2019). https://doi.org/10.1186/s13059-019-1632-4
