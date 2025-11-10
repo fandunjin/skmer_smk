@@ -80,7 +80,10 @@ ref_dir/：Collection directory of sequences for Skmer runs
 ```
 ![DAG](https://github.com/fandunjin/skmer_smk/blob/main/dag.png)
 
-# REFERENCE
-https://github.com/shahab-sarmashghi/Skmer
-
+# Reference
+https://github.com/shahab-sarmashghi/Skmer  
+https://github.com/amkozlov/raxml-ng  
+https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml  
+https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbmerge-guide/  
+http://www.atgc-montpellier.fr/fastme/usersguide.php  
 Sarmashghi, S., Bohmann, K., P. Gilbert, M.T. et al. Skmer: assembly-free and alignment-free sample identification using genome skims. Genome Biol 20, 34 (2019). https://doi.org/10.1186/s13059-019-1632-4
