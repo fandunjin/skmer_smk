@@ -78,4 +78,4 @@ results/{sample}/nDNAOK/：Sequences after head 25,000,000
 results/skmer/subsample/：bootstrap Bootstrap replicate results
 ref_dir/：Collection directory of sequences for Skmer runs
 ```
-![DAG]([skmer_smk/dag.png](https://github.com/fandunjin/skmer_smk/blob/main/dag.png ))
+![DAG](https://github.com/fandunjin/skmer_smk/blob/main/dag.png)
