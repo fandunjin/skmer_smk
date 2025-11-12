@@ -73,7 +73,6 @@ rule head_reads:
     
 import glob
 import os
-# 4. 样本级 → 全局级桥接 
 rule link_to_ref_dir:
     input: get_all_fq
     output: touch("ref_dir/.moved") # 全局标记 
