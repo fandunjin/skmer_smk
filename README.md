@@ -3,7 +3,7 @@
 ## Test Procedure (Using Test Data)</span>
 ```bash
 git clone https://github.com/fandunjin/skmer_smk.git
-conda create -n skmer snakemake Mash seqtk pandas=1.5.2 scipy biopython bowtie2 bbmap fastme raxml python=3.9
+conda create -n skmer snakemake Mash seqtk pandas=1.5.2 scipy biopython bowtie2 bbmap fastme raxml fastp python=3.9
 conda activate skmer
 conda install -c bioconda jellyfish
 git clone https://github.com/shahab-sarmashghi/Skmer.git
