@@ -1,16 +1,39 @@
 rep_n = 100
 SAMPLES, = glob_wildcards("raw_data/raw_data/{sample}.R1.fq.gz")
+
 def get_all_fq(wildcards):
     return expand("results/{sample}/nDNAOK/{sample}.fq", sample=SAMPLES)
 
 rule all: 
     input:
         expand("results/{sample}/nDNAOK/{sample}.fq", sample=SAMPLES),
-        "results/skmer/dimtrx_main.txt", # 距离矩阵
+        expand("results/{sample}/clean/{sample}.fastp.html", sample=SAMPLES),
+        "results/skmer/dimtrx_main.txt", 
         expand("results/skmer/subsample/rep{i}/dimtrx_rep.txt", i=range(rep_n)),
-        "results/skmer/dimtrx_main_cor_OK.txt.tre", # 最终树
-        "results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre", # skmer树
-	    "results/skmer/integration.tre"
+        "results/skmer/dimtrx_main_cor_OK.txt.tre", 
+        "results/skmer/RAxML_MajorityRuleExtendedConsensusTree.BS_TREE_CONS_fixed.tre", 
+        "results/skmer/integration.tre"
+
+rule fastp:
+    input:
+        r1="raw_data/raw_data/{sample}.R1.fq.gz",
+        r2="raw_data/raw_data/{sample}.R2.fq.gz"
+    output:
+        r1="results/{sample}/clean/{sample}.R1.clean.fq.gz",
+        r2="results/{sample}/clean/{sample}.R2.clean.fq.gz",
+        json="results/{sample}/clean/{sample}.fastp.json",
+        html="results/{sample}/clean/{sample}.fastp.html"
+    shell:
+        """
+        fastp -i {input.r1} -I {input.r2} \
+              -o {output.r1} -O {output.r2} \
+              -l 100 \
+              -q 20 -u 5 \
+              --detect_adapter_for_pe \
+              --correction \
+              -w {threads} \
+              -j {output.json} -h {output.html}
+        """
 
 rule bowtie2_build: 
     input: ref="raw_data/ref.fna" 
@@ -20,8 +43,8 @@ rule bowtie2_build:
 rule bowtie2_filter:
     input:
         ref=expand("raw_data/ref.{ext}", ext=["1.bt2", "2.bt2", "3.bt2", "4.bt2", "rev.1.bt2", "rev.2.bt2"]),
-        r1="raw_data/raw_data/{sample}.R1.fq.gz",
-        r2="raw_data/raw_data/{sample}.R2.fq.gz"
+        r1="results/{sample}/clean/{sample}.R1.clean.fq.gz",
+        r2="results/{sample}/clean/{sample}.R2.clean.fq.gz"
     output:
         un_conc_gz_r1="results/{sample}/nDNA/un-conc-mate.1",
         un_conc_gz_r2="results/{sample}/nDNA/un-conc-mate.2",
@@ -75,7 +98,7 @@ import glob
 import os
 rule link_to_ref_dir:
     input: get_all_fq
-    output: touch("ref_dir/.moved") # 全局标记 
+    output: touch("ref_dir/.moved") 
     params: ref_dir="ref_dir" 
     shell: """ 
         mkdir -p {params.ref_dir} 
