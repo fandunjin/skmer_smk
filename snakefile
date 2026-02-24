@@ -161,10 +161,12 @@ rule fastme:
     shell: "fastme -i {input} -o {output}" 
 
 rule tsv_to_phymat_sub:
-    input:  "results/skmer/subsample/rep{idx}/dimtrx_rep.txt"
+    input:  
+        txt="results/skmer/subsample/rep{idx}/dimtrx_rep.txt",
+        wait_for_correct="results/skmer/dimtrx_main_cor_.txt"
     output: "results/skmer/subsample/rep{idx}/dimtrx_rep_cor0.txt"
     shell:
-        "bash tsv_to_phymat.sh {input} {output}"
+        "bash tsv_to_phymat.sh {input.txt} {output}"
 
 rule fastme_per_sub:
     input:  "results/skmer/subsample/rep{idx}/dimtrx_rep_cor0.txt"
